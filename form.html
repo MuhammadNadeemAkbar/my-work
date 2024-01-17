@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nothing You Could Do" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&amp;family=Open+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-size: cover;
+            margin: 0;
+            font-family: monospace;
+            color: white;
+            font-size: 17px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin: 45px auto;
+            padding: 16px;
+            background: rgba(202, 188, 188, 0.291);
+            border-radius: 10px;
+            width: 513px;
+        }
+
+        .formdesign {
+            margin-bottom: 15px;
+        }
+
+        .but {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .but:hover {
+            background-color: #45a049;
+        }
+
+        .fromerror {
+            color: red;
+            
+            
+        }
+
+        .back-vedio {
+            position: relative;
+            right: 0;
+            bottom: 40%;
+            width: 100%;
+        }
+
+        .form {
+            position: absolute;
+            top: 0;
+            margin-top: 5%;
+            margin-left: 31%;
+        }
+
+        .dad {
+            margin-left: 1px;
+            border-radius: 4px;
+            border: none;
+            padding: 8px;
+            width: 96%;
+            margin-top: 9px;
+        }
+        .pk #mySelect {
+            margin-left: 1px;
+            border-radius: 4px;
+            border: none;
+            padding: 8px;
+            width: 99%;
+            margin-top: 9px;
+            background-color: #e2e5e2;
+
+        }
+        form input{
+            background-color: #e2e5e2;
+        }
+        
+        input::placeholder {
+            padding: 8px;
+        }
+        .vali{
+            position: absolute;top: 0; margin-left: 42%;
+            font-family: 'Dancing Script', cursive;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>  
+        <video autoplay loop muted plays-inline class="back-vedio">
+            <source src="black.mov">
+        </video>
+        <h1 class="vali">Validation From</h1>
+        <form action="index.html" name="myForm" class="form" onsubmit="return validateForm()">
+            <div class="formdesign" id="user">
+                User Id: <input type="text" name="fid" required class="dad" autocomplete="off" placeholder="  "><b><span
+                        class="fromerror"></span></b>
+            </div>
+            <div class="formdesign" id="pass">
+                Password: <input type="password" name="fpass" required autocomplete="off" class="dad" style="margin-left: 0;"><span
+                    class="fromerror"></span>
+            </div>
+            <div class="formdesign" id="name">
+                Name: <input type="text" name="fname" required autocomplete="off" class="dad"><span class="fromerror"></span>
+            </div>
+            <div class="formdesign" id="add">
+                Address: <input type="text" name="fadd" required autocomplete="off" class="dad"><span class="fromerror"></span>
+            </div>
+            <div class="formdesign pk" id="slect">
+               Please Select A Country: <select id="mySelect" name="country" required>
+                    <option value=""hidden disabled selected>Select a country</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="USA">USA</option>
+                    <option value="INDIA">INDIA</option>
+                    <option value="ENGLAND">ENGLAND</option>
+                </select>
+                <span class="fromerror"></span>
+            </div>
+            <div class="formdesign" id="zip">
+                Zip Code: <input type="text" name="fzip" required autocomplete="off" class="dad"><span class="fromerror"></span>
+            </div>
+            <div class="formdesign" id="email">
+                Email: <input type="text" name="femail" required autocomplete="off" class="dad"><span class="fromerror"></span>
+            </div>
+            <div class="formdesign" id="sex">
+                Sex: <input type="radio" id="male" name="gender" value="male">Male
+                <input type="radio" id="female" name="gender" value="female">Female
+            </div>
+            <div class="formdesign" id="language">
+                Language: <input type="checkbox" id="english" name="langEnglish" value="english"> English
+                <input type="checkbox" id="nonEnglish" name="langNonEnglish" value="nonEnglish"> Non-English
+            </div>
+            <input class="but" type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        function seterror(id, error) {
+            element = document.getElementById(id);
+            element.getElementsByClassName('fromerror')[0].innerHTML = error;
+        }
+
+        function validateForm() {
+            var retunal = true;
+            let Userid = document.forms['myForm']['fid'].value;
+
+            if (Userid.length < 5 || Userid.length > 12) {
+                seterror("user", "*Required and must be of length 5 to 12");
+                retunal = false;
+            }
+
+            let pass = document.forms['myForm']['fpass'].value;
+            if (pass.length < 7 || pass.length > 12) {
+                seterror("pass", "*Required and must be of length 7 to 12");
+                retunal = false;
+            }
+
+            let name = document.forms['myForm']['fname'].value;
+            if (!/^[a-zA-Z]+$/.test(name)) {
+                seterror("name", "*Required and must contain only alphabets");
+                retunal = false;
+            }
+
+            let country = document.forms['myForm']['country'].value;
+            if (country === "") {
+                seterror("slect", "*Please select a country");
+                retunal = false;
+            }
+
+            let zipcode = document.forms['myForm']['fzip'].value;
+            if (isNaN(zipcode)) {
+                seterror("zip", "*Required and must be a number");
+                retunal = false;
+            }
+
+            let email = document.forms['myForm']['femail'].value;
+            if (!isValidEmail(email)) {
+                seterror("email", "*Enter a valid email address");
+                retunal = false;
+            }
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            return retunal;
+        }
+    </script>
+</body>
+
+</html>
